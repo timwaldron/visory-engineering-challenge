@@ -11,19 +11,24 @@ export const eventRouter: Express = express();
 
 eventRouter.get('/', async (req: Request, res: Response) => {
     try {
-        const { city, startDateTime, endDateTime } = req.query as EventSearch;
+        const { city, startDateTime, endDateTime, page, size } = req.query;
 
-        const payload = {
+        let payload = {
             apikey: process.env.TICKETMASTER_API_KEY,
             locale: '*',
             city,
             startDateTime: (startDateTime ? (startDateTime + ':00Z') : ''), // TODO: Fix this hack
             endDateTime: (endDateTime ? (endDateTime + ':00Z') : ''), // TODO: Fix this hack
-        };
+            size: 20, // Hardcode for now, should be a dropdown in the UI to control this with a here that we aren't requesting too much data
+        } as any; // TODO: I don't like this, need to create a type for it
 
+        if (page) { payload['page'] = page; }
+        // if (size) { payload['size'] = size; }
+
+        console.log(payload);
         const response = (await axios.get<EventResponse>(process.env.TICKETMASTER_API_URL!, { params: payload })).data;
 
-        // TODO: Move this into a business logic layer
+        // TODO: Move this into a business logic layer or mapper
         const result = {
             pagination: response.page,
             results: response._embedded.events,

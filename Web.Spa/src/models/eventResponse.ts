@@ -2,7 +2,7 @@
 
 export type EventResponse = {
     pagination: EventPage;
-    results: EventResult[]; 
+    results: EventResult[];
     navigation: EventLinks;
 }
 
@@ -16,6 +16,14 @@ export type EventPage = {
 export type EventResult = { // Would be nice if this was typed on the Ticketmaster support portal
     id: string;
     name: string;
+    info: string;
+    url: string;
+    dates: {
+        start: {
+            localDate: string;
+            localTime: string;
+        }
+    }
     //... TODO: Find other things to include
 }
 

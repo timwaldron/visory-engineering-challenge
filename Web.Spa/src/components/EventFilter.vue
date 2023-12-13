@@ -24,7 +24,7 @@
             
             <div class="col-auto">
                 <button class="btn btn-secondary" type="button" @click="search" :disabled="activity">
-                    <i v-if="activity" class="fas fa-spin fa-sync"></i>
+                    <i v-if="activity" class="fas fa-sync fa-spin"></i>
                     <span v-else>Search!</span>
                 </button>
             </div>

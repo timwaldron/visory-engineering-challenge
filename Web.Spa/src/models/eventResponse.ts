@@ -1,9 +1,9 @@
+// File contains our mutation of the Ticketmaster API types
+
 export type EventResponse = {
-    page: EventPage;
-    results: EventResult;
-    _embedded: {
-        events: unknown[]; // Would be nice if this was typed on the Ticketmaster support portal
-    }
+    pagination: EventPage;
+    results: EventResult[]; 
+    navigation: EventLinks;
 }
 
 export type EventPage = {
@@ -13,7 +13,7 @@ export type EventPage = {
     totalPages: number;
 }
 
-export type EventResult = {
+export type EventResult = { // Would be nice if this was typed on the Ticketmaster support portal
     id: string;
     name: string;
     //... TODO: Find other things to include

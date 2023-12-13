@@ -8,7 +8,7 @@
     <EventFilter :activity="activity" @search="searchEvents" />
 
     <hr/>
-    
+
     <EventsViewer :events="events" />
 </template>
 
@@ -16,7 +16,7 @@
 import axios from 'axios';
 import { defineComponent } from 'vue';
 
-import { EventSearch } from './models/events';
+import { EventSearch } from './models/eventSearch';
 
 import EventFilter from './components/EventFilter.vue';
 import EventsViewer from './components/EventsViewer.vue';
@@ -48,4 +48,4 @@ export default defineComponent({
         }
     }
 });
-</script>
+</script>./models/eventSearch

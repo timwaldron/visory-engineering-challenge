@@ -5,20 +5,24 @@
         </div>
     </div>
     
-    <p><button class="btn btn-primary" type="button" @click="testApi">Test API</button></p>
+    <EventFilter @search="searchEvents" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
+import EventFilter from './components/EventFilter.vue';
+import { EventSearch } from './models/events';
+
 export default defineComponent({
     name: 'App',
     components: {
+        EventFilter,
     },
     methods: {
-        async testApi() {
-            const response = (await axios.get('http://localhost:3000/api/v1/tickets/events'));
+        async searchEvents(payload: EventSearch) {
+            const response = (await axios.get('http://localhost:3000/api/v1/events', { params: payload }));
             console.log('response:', response);
         }
     }

@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
-import { ticketRouter } from './ticketRouter';
+import { eventRouter } from './eventRouter';
 
 export const router: Express = express();
 router.use(express.json());
 
-router.use('/tickets', ticketRouter);
+router.use('/events', eventRouter);

@@ -5,25 +5,46 @@
         </div>
     </div>
     
-    <EventFilter @search="searchEvents" />
+    <EventFilter :activity="activity" @search="searchEvents" />
+
+    <hr/>
+    
+    <EventsViewer :events="events" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import axios from 'axios';
+import { defineComponent } from 'vue';
+
+import { EventSearch } from './models/events';
 
 import EventFilter from './components/EventFilter.vue';
-import { EventSearch } from './models/events';
+import EventsViewer from './components/EventsViewer.vue';
 
 export default defineComponent({
     name: 'App',
     components: {
         EventFilter,
+        EventsViewer,
+    },
+    data() {
+        return {
+            activity: false,
+            events: [] as any[], // TODO: Type this correctly once I know what data I want to show
+        };
     },
     methods: {
         async searchEvents(payload: EventSearch) {
-            const response = (await axios.get('http://localhost:3000/api/v1/events', { params: payload }));
-            console.log('response:', response);
+            try {
+                this.activity = true;
+                const response = (await axios.get('http://localhost:3000/api/v1/events', { params: payload })).data;
+                console.log('response:', response);
+            } catch (error) {
+                console.error(error);
+                // TODO: Toast popup?
+            } finally {
+                this.activity = false;
+            }
         }
     }
 });

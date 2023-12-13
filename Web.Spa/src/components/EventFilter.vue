@@ -1,6 +1,5 @@
 <template>
     <div class="row d-flex align-items-center justify-content-center">
-
         <div class="col-3">
             <div class="input-group input-group">
                 <span class="input-group-text" id="location">Location</span>
@@ -31,6 +30,13 @@
         </div>
     </div>
 
+    <div class="row" v-if="hasSearched">
+        <div class="col">
+            <!-- TODO: display: Showing results that [are in {location}(if set)], [start on {startDate}(if set)], [end on {endDate}(if set)]-->
+            <!-- Can build this string in a computed method as an array and .join(',') it -->
+        </div>
+    </div>
+
     
 </template>
 
@@ -48,11 +54,14 @@ export default defineComponent({
             location: '',
             startDate: '',
             endDate: '',
+            hasSearched: false,
         };
     },
     methods: {
         clear(): void {
-
+            this.location = '';
+            this.startDate = '';
+            this.endDate = '';
         },
         async search(): Promise<void> {
             const payload = {
